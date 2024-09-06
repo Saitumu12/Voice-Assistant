@@ -1,16 +1,14 @@
 import speech_recognition as sr
 import pyttsx3
+from datetime import datetime
 
-# Initialize the recognizer and text-to-speech engine
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
 
-# Define a function to speak text
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-# Define a function to listen and recognize speech
 def listen():
     with sr.Microphone() as source:
         print("Listening...")
@@ -26,7 +24,6 @@ def listen():
             print("Sorry, there was an error with the speech recognition service.")
             return None
 
-# Main loop
 while True:
     command = listen()
     if command:
@@ -35,5 +32,14 @@ while True:
         elif "stop" in command.lower():
             speak("Goodbye!")
             break
+        elif "weather" in command.lower():
+            speak("Sure, I can tell you the weather. But I need an internet connection to provide that information.")
+        elif "time" in command.lower():
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            speak(f"The current time is {current_time}.")
+        elif "your name" in command.lower():
+            speak("I am your voice assistant. How can I help you today?")
         else:
             speak("Sorry, I don't understand that command.")
+
